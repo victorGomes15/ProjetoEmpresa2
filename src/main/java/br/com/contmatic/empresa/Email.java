@@ -41,7 +41,8 @@ public class Email {
 			}
 		}
 		checkArgument(contArroba == 1, "Email contém mais de 1 arroba ");
-		checkArgument(enderecoEmail.matches(".+@.+\\.[a-z]+"), "Email não pode começar ou terminar com @ ou ponto");
+		checkArgument(enderecoEmail.matches(RegexCampos.EMAILFORMATO),
+				"Email não pode começar ou terminar com @ ou ponto");
 		this.enderecoEmail = enderecoEmail;
 	}
 

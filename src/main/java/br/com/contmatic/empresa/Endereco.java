@@ -48,7 +48,7 @@ public class Endereco {
 	 */
 	public void setRua(String rua) {
 		checkArgument(isNotEmpty(rua) && rua.length() >= 4, "Rua não pode ser vazia e maior que 3 caracteres");
-		checkArgument(rua.matches("[a-zA-Z\\+\\s_\\d]+"), "Rua não pode conter caracteres especiais");
+		checkArgument(rua.matches(RegexCampos.RUAFORMATO), "Rua não pode conter caracteres especiais");
 		this.rua = rua;
 	}
 

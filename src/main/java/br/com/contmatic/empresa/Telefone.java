@@ -36,7 +36,7 @@ public class Telefone {
 		checkArgument(isNotEmpty(numero), "Número nulo ou vazio");
 		checkArgument(numero.length() == CELULAR.getTamanho() || numero.length() == FIXO.getTamanho(),
 				"Número digitos inválido");
-		checkArgument(numero.matches("[0-9]+"), "Campo só deve conter números");
+		checkArgument(numero.matches(RegexCampos.TELEFONEFORMATO), "Campo só deve conter números");
 		this.numero = numero;
 	}
 

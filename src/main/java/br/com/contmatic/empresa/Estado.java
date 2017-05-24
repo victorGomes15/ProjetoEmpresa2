@@ -31,7 +31,7 @@ public class Estado {
 	}
 
 	public void setUf(String uf) {
-		checkArgument(isNotEmpty(uf) && uf.matches("[a-zA-Z]{2}"));
+		checkArgument(isNotEmpty(uf) && uf.matches(RegexCampos.UFFORMATO));
 		this.uf = uf;
 	}
 

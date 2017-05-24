@@ -67,7 +67,7 @@ public class Empresa {
 	 */
 	public void setCnpj(String cnpj) {
 
-		checkArgument(isNotEmpty(cnpj) && cnpj.matches("\\d{14}"), "CNPJ incorreto");
+		checkArgument(isNotEmpty(cnpj) && cnpj.matches(RegexCampos.CNPJFORMATO), "CNPJ incorreto");
 		this.cnpj = cnpj;
 	}
 
@@ -87,7 +87,7 @@ public class Empresa {
 	 *            the new razao social
 	 */
 	public void setRazaoSocial(String razaoSocial) {
-		checkArgument(isNotEmpty(razaoSocial) && razaoSocial.matches("[A-Za-z0-9]"),
+		checkArgument(isNotEmpty(razaoSocial) && razaoSocial.matches(RegexCampos.RAZAOSOCIALFORMATO),
 				"Razão social invalida, não pode ser nula ou vazia");
 		this.razaoSocial = razaoSocial;
 	}
@@ -140,7 +140,7 @@ public class Empresa {
 	 *            the new dono
 	 */
 	public void setDono(String dono) {
-		checkArgument(isNotEmpty(dono) && dono.matches("^[A-Za-z]{4,50}"),
+		checkArgument(isNotEmpty(dono) && dono.matches(RegexCampos.DONOFORMATO),
 				"Nome não pode ser nulo, vazio ou conter números");
 		this.dono = dono;
 	}
@@ -202,7 +202,7 @@ public class Empresa {
 	 *            the new inscricao estadual
 	 */
 	public void setInscricaoEstadual(String inscricaoEstadual) {
-		checkArgument(isNotEmpty(inscricaoEstadual) && inscricaoEstadual.matches("[0-9]{13}"),
+		checkArgument(isNotEmpty(inscricaoEstadual) && inscricaoEstadual.matches(RegexCampos.INSCRICAOESTADUALFORMATO),
 				"Inscrição estadual invalida");
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
