@@ -31,7 +31,7 @@ public class EmpresaTeste {
 
 	@BeforeClass
 	public static void setUpClass() {
-		System.out.println("ComeÃ§o dos testes da classe " + EmpresaTeste.class.getSimpleName() + "\n");
+		System.out.println("Começo dos testes da classe " + EmpresaTeste.class.getSimpleName() + "\n");
 		FixtureFactoryLoader.loadTemplates("br.com.contmatic.templates");
 	}
 
@@ -43,7 +43,7 @@ public class EmpresaTeste {
 
 	@Before
 	public void criarObj() {
-		System.out.println("ComeÃ§o do teste");
+		System.out.println("Começo do teste");
 		empresa = Fixture.from(Empresa.class).gimme("empresaValida");
 	}
 

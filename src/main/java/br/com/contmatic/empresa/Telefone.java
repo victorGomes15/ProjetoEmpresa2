@@ -23,9 +23,10 @@ public class Telefone {
 		return ddd;
 	}
 
-	public void setDdd(Integer dd) {
-		checkArgument(dd > 10 && dd < 100, "DDD valor incorreto");
-		this.ddd = dd;
+	public void setDdd(Integer ddd) {
+		checkArgument(ddd >= DDDsType.DDDMINIMO.getValor() && ddd <= DDDsType.DDDMAXIMO.getValor(),
+				"DDD valor incorreto");
+		this.ddd = ddd;
 	}
 
 	public String getNumero() {

@@ -15,12 +15,6 @@ public class EmailTemplates implements TemplateLoader {
 			}
 		});
 
-		Fixture.of(Email.class).addTemplate("mailInvalido", new Rule() {
-			{
-				add("enderecoEmail", random("@gmail.com", "victor@gmail.com.br.", "Jose@victor@gmail.com","victor@"));
-			}
-		});
 	}
- 
-	
+
 }
