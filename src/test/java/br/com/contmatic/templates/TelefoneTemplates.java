@@ -15,7 +15,7 @@ public class TelefoneTemplates implements TemplateLoader {
 		Fixture.of(Telefone.class).addTemplate("telefoneValido", new Rule() {
 			{
 				add("ddd", random(Integer.class, range(DDDsType.DDDMINIMO.getValor(), DDDsType.DDDMAXIMO.getValor())));
-				add("tipo", random((Object) TelefoneType.values()));
+				add("tipo", random(TelefoneType.values()));
 				add("numero", regex(RegexCampos.TELEFONEFORMATO));
 			}
 		});
