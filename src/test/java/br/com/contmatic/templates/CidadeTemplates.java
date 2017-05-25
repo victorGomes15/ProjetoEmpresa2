@@ -19,13 +19,6 @@ public class CidadeTemplates implements TemplateLoader {
 			}
 		});
 
-		Fixture.of(Cidade.class).addTemplate("cidadeInvalida", new Rule() {
-			{
-				add("codigo", random(Integer.class, range(-10, 0)));
-				add("nome", random("So", "RJ", "O@@@sco"));
-				add("bairro", one(Bairro.class, "bairroValido"));
-			}
-		});
 	}
 
 }
