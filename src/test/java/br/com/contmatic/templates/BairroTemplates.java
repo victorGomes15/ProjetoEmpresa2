@@ -14,7 +14,7 @@ public class BairroTemplates implements TemplateLoader {
 			{
 				add("codigo", random(Integer.class, range(1, 100)));
 				add("nomeBairro", random("Ibirapuera", "Capão Redondo", "Tatuapé"));
-				add("cep", regex(RegexCampos.CEPFORMATO));
+				add("cep", regex(RegexCampos.CEP_FORMATO));
 			}
 		});
 

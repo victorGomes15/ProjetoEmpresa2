@@ -1,19 +1,26 @@
 package br.com.contmatic.empresa;
 
-import static br.com.contmatic.empresa.TelefoneType.CELULAR;
-import static br.com.contmatic.empresa.TelefoneType.FIXO;
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Telefone {
 
+	@NotNull(message = "Ddd não pode ser nulo")
+	@Min(value = 11, message = "Ddd minimo parte de {value}")
+	@Max(value = 99, message = "Ddd máximo igual a {value}")
 	private Integer ddd;
+	@NotBlank(message = "Número não pode ser nulo ou vazio")
+	@Pattern(regexp = RegexCampos.TELEFONE_FORMATO, message = "Telefone deve ter um número valido")
 	private String numero;
+	@NotNull(message = "Tipo de telefone não pode ser nulo")
 	private TelefoneType tipo;
 
 	public Telefone() {
@@ -24,8 +31,6 @@ public class Telefone {
 	}
 
 	public void setDdd(Integer ddd) {
-		checkArgument(ddd >= DDDsType.DDDMINIMO.getValor() && ddd <= DDDsType.DDDMAXIMO.getValor(),
-				"DDD valor incorreto");
 		this.ddd = ddd;
 	}
 
@@ -34,10 +39,6 @@ public class Telefone {
 	}
 
 	public void setNumero(String numero) {
-		checkArgument(isNotEmpty(numero), "Número nulo ou vazio");
-		checkArgument(numero.length() == CELULAR.getTamanho() || numero.length() == FIXO.getTamanho(),
-				"Número inválido");
-		checkArgument(numero.matches(RegexCampos.TELEFONEFORMATO), "Campo só deve conter números");
 		this.numero = numero;
 	}
 
@@ -46,7 +47,6 @@ public class Telefone {
 	}
 
 	public void setTipo(TelefoneType tipo) {
-		checkArgument(tipo.equals(CELULAR) || tipo.equals(FIXO), "Tipo incorreto");
 		this.tipo = tipo;
 	}
 

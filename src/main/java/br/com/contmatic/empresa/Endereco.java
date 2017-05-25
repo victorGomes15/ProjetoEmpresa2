@@ -1,12 +1,15 @@
 package br.com.contmatic.empresa;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -17,18 +20,29 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Endereco {
 
 	/** The rua. */
+	@NotBlank(message = "Nome da rua não pode ser vazia ou nula")
+	@Pattern(regexp = RegexCampos.RUA_FORMATO)
 	private String rua;
 
+	/** The numero. */
+	@NotNull(message = "Número não pode ser nulo")
+	@Min(value = 1, message = "Número minimo parti de {value}")
 	/** The numero. */
 	private Integer numero;
 
 	/** The complemento. */
+	@Min(value = 0, message = "Número para complemento deve parti de {value}")
+	@Max(value = 50, message = "Número máximo para complento é {value}")
+	/** The complemento. */
 	private Integer complemento;
 
+	/** The estado. */
+	@NotNull(message = "Estado não pode ser nulo")
 	/** The estado. */
 	private Estado estado;
 
 	/** The tipo endereco. */
+	@NotNull(message = "Tipo de endereço não pode ser nulo")
 	private EnderecoType tipoEndereco;
 
 	/**
@@ -47,8 +61,6 @@ public class Endereco {
 	 *            the new rua
 	 */
 	public void setRua(String rua) {
-		checkArgument(isNotEmpty(rua) && rua.length() >= 4, "Rua não pode ser vazia e maior que 3 caracteres");
-		checkArgument(rua.matches(RegexCampos.RUAFORMATO), "Rua não pode conter caracteres especiais");
 		this.rua = rua;
 	}
 
@@ -68,7 +80,6 @@ public class Endereco {
 	 *            the new numero
 	 */
 	public void setNumero(Integer numero) {
-		checkArgument(numero > 0, "Número deve ser maior que 0");
 		this.numero = numero;
 	}
 
@@ -88,8 +99,6 @@ public class Endereco {
 	 *            the new tipo endereco
 	 */
 	public void setTipoEndereco(EnderecoType tipoEndereco) {
-		checkArgument(tipoEndereco.equals(EnderecoType.COMERCIAL.getDescricao())
-				|| tipoEndereco.equals(EnderecoType.FISCAL.getDescricao()), "Tipo incorreto");
 		this.tipoEndereco = tipoEndereco;
 	}
 
@@ -109,7 +118,6 @@ public class Endereco {
 	 *            the new complemento
 	 */
 	public void setComplemento(Integer complemento) {
-		checkArgument(complemento >= 0, "Complemento não pode ser menor que 0");
 		this.complemento = complemento;
 	}
 

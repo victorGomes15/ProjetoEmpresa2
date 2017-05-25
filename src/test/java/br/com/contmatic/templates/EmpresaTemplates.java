@@ -16,14 +16,14 @@ public class EmpresaTemplates implements TemplateLoader {
 	public void load() {
 		Fixture.of(Empresa.class).addTemplate("empresaValida", new Rule() {
 			{
-				add("cnpj", regex(RegexCampos.CNPJFORMATO));
+				add("cnpj", regex(RegexCampos.CNPJ_FORMATO));
 				add("dataCriacao", DateTime.now().plusDays(1));
 				add("dono", random("João", "José", "Pedro", "Luís"));
 				add("email", one(Email.class, "emailValido"));
 				add("endereco", has(1).of(Endereco.class, "enderecoValido"));
-				add("inscricaoEstadual", regex(RegexCampos.INSCRICAOESTADUALFORMATO));
+				add("inscricaoEstadual", regex(RegexCampos.INSCRICAO_ESTADUAL_FORMATO));
 				add("nomeEmpresa", random("Car System", "Micrsoft", "Super casinha"));
-				add("razaoSocial", regex(RegexCampos.RAZAOSOCIALFORMATO));
+				add("razaoSocial", regex(RegexCampos.RAZAO_SOCIAL_FORMATO));
 				// add("telefone", has(1).of(Telefone.class, "telefoneValido"));
 			}
 		});

@@ -1,12 +1,10 @@
 package br.com.contmatic.empresa;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,6 +13,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 public class Email {
 
 	/** The endereco email. */
+	@NotBlank(message = "Email não pode ser nulo ou vazio")
+	@org.hibernate.validator.constraints.Email(regexp = RegexCampos.EMAIL_FORMATO, message = "Email deve ser valido")
 	private String enderecoEmail;
 
 	/**
@@ -33,16 +33,6 @@ public class Email {
 	 *            the new endereco email
 	 */
 	public void setEnderecoEmail(String enderecoEmail) {
-		checkArgument(isNotEmpty(enderecoEmail), "Email nulo ou vazio");
-		int contArroba = 0;
-		for (int i = 0; i < enderecoEmail.length(); i++) {
-			if (enderecoEmail.charAt(i) == '@') {
-				contArroba++;
-			}
-		}
-		checkArgument(contArroba == 1, "Email contém mais de 1 arroba ");
-		checkArgument(enderecoEmail.matches(RegexCampos.EMAILFORMATO),
-				"Email não pode começar ou terminar com @ ou ponto");
 		this.enderecoEmail = enderecoEmail;
 	}
 

@@ -1,12 +1,14 @@
 package br.com.contmatic.empresa;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,12 +17,18 @@ import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 public class Bairro {
 
 	/** The codigo. */
+	@NotNull(message = "Código do bairro não pode ser nulo")
+	@Min(value = 1, message = "Código do bairro parte de {value}")
 	private Integer codigo;
 
 	/** The nome bairro. */
+	@NotBlank(message = "Nome do bairro não pode ser nulo ou vazio")
+	@Pattern(regexp = RegexCampos.NOME_BAIRRO_FORMATO, message = "Nome do bairro não pode conter caracteres especiais")
 	private String nomeBairro;
 
 	/** The cep. */
+	@NotBlank(message = "Cep não pode ser nulo ou vazio")
+	@Pattern(regexp = RegexCampos.CEP_FORMATO, message = "Cep só pode conter números")
 	private String cep;
 
 	/**
@@ -39,7 +47,6 @@ public class Bairro {
 	 *            the new codigo
 	 */
 	public void setCodigo(int codigo) {
-		checkArgument(codigo > 0, "Código inserido menor ou igual a 0");
 		this.codigo = codigo;
 	}
 
@@ -59,7 +66,6 @@ public class Bairro {
 	 *            the new nome bairro
 	 */
 	public void setNomeBairro(String nomeBairro) {
-		checkArgument(isNotEmpty(nomeBairro) && nomeBairro.length() > 3, "Nome de bairro incorreto");
 		this.nomeBairro = nomeBairro;
 	}
 
@@ -79,7 +85,6 @@ public class Bairro {
 	 *            the new cep
 	 */
 	public void setCep(String cep) {
-		checkArgument(isNotEmpty(cep) && cep.matches(RegexCampos.CEPFORMATO), "Cep inválido");
 		this.cep = cep;
 	}
 

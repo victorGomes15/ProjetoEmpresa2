@@ -16,7 +16,7 @@ public class TelefoneTemplates implements TemplateLoader {
 			{
 				add("ddd", random(Integer.class, range(DDDsType.DDDMINIMO.getValor(), DDDsType.DDDMAXIMO.getValor())));
 				add("tipo", random((Object[]) TelefoneType.values()));
-				add("numero", regex(RegexCampos.TELEFONEFORMATO));
+				add("numero", regex(RegexCampos.TELEFONE_FORMATO));
 			}
 		});
 

@@ -1,15 +1,20 @@
 package br.com.contmatic.empresa;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-
 import java.util.Set;
+
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
+
+import br.com.caelum.stella.bean.validation.CNPJ;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -18,9 +23,13 @@ import org.joda.time.DateTime;
 public class Empresa {
 
 	/** The cnpj. */
+	@NotNull(message = "CNPJ não deve ser nulo ou vazio")
+	@CNPJ(message = "CNPJ deve ser valido")
 	private String cnpj;
 
 	/** The razao social. */
+	@NotBlank(message = "Razão social não pode ser nula ou vazia")
+	@Size(min = 2, max = 30)
 	private String razaoSocial;
 
 	/** The endereco. */
@@ -30,18 +39,27 @@ public class Empresa {
 	private Set<Telefone> telefone;
 
 	/** The dono. */
+	@NotBlank(message = "Dono não pode ser nulo ou vazio")
+	@Pattern(regexp = RegexCampos.DONO_FORMATO, message = "Dono tem que ter um nome valido")
 	private String dono;
 
 	/** The email. */
+	@NotNull(message = "Email não pode ser nulo")
 	private Email email;
 
 	/** The inscricao estadual. */
+	@NotBlank(message = "Inscrição estadual não pode ser nula ou vazia")
+	@Pattern(regexp = RegexCampos.INSCRICAO_ESTADUAL_FORMATO, message = "Inscrição estadula deve conter valores validos")
 	private String inscricaoEstadual;
 
 	/** The nome empresa. */
+	@NotBlank(message = "Nome da empresa não pode ser nulo ou vazio")
+	@Pattern(regexp = RegexCampos.NOME_BAIRRO_FORMATO)
 	private String nomeEmpresa;
 
 	/** The data criacao. */
+	@NotNull(message = "Data de criação não pode ser nula")
+	@Future(message = "Data de criação tem que ser data futura")
 	private DateTime dataCriacao;
 
 	/**
@@ -66,7 +84,6 @@ public class Empresa {
 	 *            the new cnpj
 	 */
 	public void setCnpj(String cnpj) {
-		checkArgument(isNotEmpty(cnpj) && cnpj.matches(RegexCampos.CNPJFORMATO), "CNPJ incorreto");
 		this.cnpj = cnpj;
 	}
 
@@ -86,8 +103,6 @@ public class Empresa {
 	 *            the new razao social
 	 */
 	public void setRazaoSocial(String razaoSocial) {
-		checkArgument(isNotEmpty(razaoSocial) && razaoSocial.matches(RegexCampos.RAZAOSOCIALFORMATO),
-				"Razão social invalida, não pode ser nula ou vazia");
 		this.razaoSocial = razaoSocial;
 	}
 
@@ -139,8 +154,6 @@ public class Empresa {
 	 *            the new dono
 	 */
 	public void setDono(String dono) {
-		checkArgument(isNotEmpty(dono) && dono.matches(RegexCampos.DONOFORMATO),
-				"Nome não pode ser nulo, vazio ou conter números");
 		this.dono = dono;
 	}
 
@@ -160,9 +173,6 @@ public class Empresa {
 	 *            the new data criacao
 	 */
 	public void setDataCriacao(DateTime dataCriacao) {
-		DateTime dataAtual = DateTime.now();
-		checkArgument(dataCriacao.isAfterNow() || dataCriacao.equals(dataAtual),
-				"Data deve ser a partir da data atual");
 		this.dataCriacao = dataCriacao;
 	}
 
@@ -201,8 +211,6 @@ public class Empresa {
 	 *            the new inscricao estadual
 	 */
 	public void setInscricaoEstadual(String inscricaoEstadual) {
-		checkArgument(isNotEmpty(inscricaoEstadual) && inscricaoEstadual.matches(RegexCampos.INSCRICAOESTADUALFORMATO),
-				"Inscrição estadual invalida");
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
@@ -222,7 +230,6 @@ public class Empresa {
 	 *            the new nome empresa
 	 */
 	public void setNomeEmpresa(String nomeEmpresa) {
-		checkArgument(isNotEmpty(nomeEmpresa), "Nome não pode ser nulo ou vazio");
 		this.nomeEmpresa = nomeEmpresa;
 	}
 

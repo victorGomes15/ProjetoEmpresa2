@@ -3,10 +3,15 @@ package br.com.contmatic.empresa;
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.MultilineRecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -14,13 +19,18 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class Cidade {
 
+	@NotNull(message = "Código não pode ser nulo")
+	@Min(1)
 	/** The codigo. */
 	private Integer codigo;
 
 	/** The nome. */
+	@NotBlank(message = "Nome não pode ser nulo ou vazio")
+	@Length(min = 4, max = 30)
 	private String nome;
 
 	/** The bairro. */
+	@NotNull(message = "Bairro deve ser nulo")
 	private Bairro bairro;
 
 	/**
