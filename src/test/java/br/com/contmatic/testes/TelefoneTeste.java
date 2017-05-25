@@ -5,7 +5,9 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import br.com.contmatic.empresa.Telefone;
 import br.com.contmatic.empresa.TelefoneType;
@@ -38,16 +40,20 @@ public class TelefoneTeste {
 		System.out.println("Fim de teste");
 	}
 
+	@Rule
+	public ExpectedException expectEx = ExpectedException.none();
+
 	@Test(expected = IllegalArgumentException.class)
 	public void nao_deve_aceitar_ddd_menor_que_11() {
 		telefone.setDdd(10);
 		Assert.assertNull(telefone.getDdd());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_ddd_maior_que_99() {
+		expectEx.expect(IllegalArgumentException.class);
+		expectEx.expectMessage("DDD valor incorreto");
 		telefone.setDdd(100);
-		Assert.assertNull(telefone.getDdd());
 	}
 
 	@Test
@@ -62,35 +68,39 @@ public class TelefoneTeste {
 		Assert.assertNotNull(telefone.getNumero());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_conter_menos_de_8_caracteres_no_numero() {
+		expectEx.expect(IllegalArgumentException.class);
+		expectEx.expectMessage("Número inválido");
 		telefone.setNumero("1234567");
-		Assert.assertNull(telefone.getNumero());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_conter_mais_de_9_caracteres_no_numero() {
+		expectEx.expect(IllegalArgumentException.class);
+		expectEx.expectMessage("Número inválido");
 		telefone.setNumero("5825495210");
-		Assert.assertNull(telefone.getNumero());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_Numero_vazio() {
+		expectEx.expect(IllegalArgumentException.class);
+		expectEx.expectMessage("Número nulo ou vazio");
 		telefone.setNumero("");
-		Assert.assertNull(telefone.getNumero());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_Numero_com_letras() {
+		expectEx.expect(IllegalArgumentException.class);
+		expectEx.expectMessage("Campo só deve conter números");
 		telefone.setNumero("5825495l");
-		Assert.assertNull(telefone.getNumero());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_Tipo_vazio() {
+		expectEx.expect(IllegalArgumentException.class);
 		String x = "";
 		telefone.setTipo(TelefoneType.valueOf(x));
-		Assert.assertNull(telefone.getTipo());
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -100,18 +110,18 @@ public class TelefoneTeste {
 		Assert.assertNull(telefone.getTipo());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_Tipo_com_numero() {
+		expectEx.expect(IllegalArgumentException.class);
 		String x = "fdf4";
 		telefone.setTipo(TelefoneType.valueOf(x));
-		Assert.assertNull(telefone.getTipo());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_Tipo_diferente_de_celular_ou_fixo() {
+		expectEx.expect(IllegalArgumentException.class);
 		String x = "comercial";
 		telefone.setTipo(TelefoneType.valueOf(x));
-		Assert.assertNull(telefone.getTipo());
 	}
 
 	@Test

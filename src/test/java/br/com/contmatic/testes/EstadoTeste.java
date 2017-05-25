@@ -5,7 +5,9 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import br.com.contmatic.empresa.Cidade;
 import br.com.contmatic.empresa.Estado;
@@ -39,6 +41,9 @@ public class EstadoTeste {
 		System.out.println(estado);
 		System.out.println("Fim de teste");
 	}
+
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void nao_deve_aceitar_um_codigo_igual_a_0() {
