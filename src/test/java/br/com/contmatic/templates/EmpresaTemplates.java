@@ -6,7 +6,6 @@ import br.com.contmatic.empresa.Email;
 import br.com.contmatic.empresa.Empresa;
 import br.com.contmatic.empresa.Endereco;
 import br.com.contmatic.empresa.RegexCampos;
-import br.com.contmatic.empresa.Telefone;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
@@ -23,7 +22,7 @@ public class EmpresaTemplates implements TemplateLoader {
 				add("email", one(Email.class, "emailValido"));
 				add("endereco", has(1).of(Endereco.class, "enderecoValido"));
 				add("inscricaoEstadual", regex(RegexCampos.INSCRICAOESTADUALFORMATO));
-				add("nomeEmpresa", random("Car System", "cidadeValida", "Super casinha"));
+				add("nomeEmpresa", random("Car System", "Micrsoft", "Super casinha"));
 				add("razaoSocial", regex(RegexCampos.RAZAOSOCIALFORMATO));
 				// add("telefone", has(1).of(Telefone.class, "telefoneValido"));
 			}

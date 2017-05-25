@@ -123,7 +123,7 @@ public class EmpresaTeste {
 	}
 
 	@Test
-	public void nao_deve_aceitar_uma_inscricaoo_estadual_nula() {
+	public void nao_deve_aceitar_uma_inscricao_estadual_nula() {
 		empresa.setInscricaoEstadual(null);
 		Assert.assertNull(empresa.getInscricaoEstadual());
 	}

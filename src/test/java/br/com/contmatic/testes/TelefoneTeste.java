@@ -29,8 +29,8 @@ public class TelefoneTeste {
 
 	@Before
 	public void criar_objeto_telefone() {
+		System.out.println("Começo do teste");
 		telefone = Fixture.from(Telefone.class).gimme("telefoneValido");
-		System.out.println("Começo do teste ");
 	}
 
 	@After

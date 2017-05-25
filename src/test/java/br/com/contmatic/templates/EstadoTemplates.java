@@ -17,7 +17,7 @@ public class EstadoTemplates implements TemplateLoader {
 				add("cod", random(Integer.class, range(1, 100)));
 			}
 		});
-		
+
 	}
 
 }
