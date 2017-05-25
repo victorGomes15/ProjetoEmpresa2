@@ -5,7 +5,9 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import br.com.contmatic.empresa.Bairro;
 import br.com.contmatic.empresa.Cidade;
@@ -42,28 +44,33 @@ public class CidadeTeste {
 		System.out.println("Fim de teste");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+
+	@Test
 	public void nao_deve_aceitar_um_nome_nulo() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Nome da cidade invalido");
 		cidade.setNome(null);
-		Assert.assertNull(cidade.getNome());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_nome_vazio() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Nome da cidade invalido");
 		cidade.setNome("");
-		Assert.assertNull(cidade.getNome());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_nome_com_menos_de_3_caracteres() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Nome da cidade invalido");
 		cidade.setNome("It");
-		Assert.assertNull(cidade.getNome());
 	}
 
 	@Test
 	public void deve_aceitar_um_nome_com_mais_de_2_caracteres() {
 		cidade.setNome("Itu");
-		Assert.assertNotNull(cidade.getNome());
 	}
 
 	@Test
@@ -76,8 +83,10 @@ public class CidadeTeste {
 		Assert.assertNotNull(cidade.getBairro());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_bairro_invalido() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("");
 		bairro = Fixture.from(Bairro.class).gimme("bairroValido");
 		bairro.setCodigo(0);
 		bairro.setNomeBairro("sp");

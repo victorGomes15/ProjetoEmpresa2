@@ -33,7 +33,7 @@ public class Email {
 	 *            the new endereco email
 	 */
 	public void setEnderecoEmail(String enderecoEmail) {
-		checkArgument(isNotEmpty(enderecoEmail));
+		checkArgument(isNotEmpty(enderecoEmail), "Email nulo ou vazio");
 		int contArroba = 0;
 		for (int i = 0; i < enderecoEmail.length(); i++) {
 			if (enderecoEmail.charAt(i) == '@') {

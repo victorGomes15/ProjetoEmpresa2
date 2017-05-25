@@ -31,7 +31,7 @@ public class Estado {
 	}
 
 	public void setUf(String uf) {
-		checkArgument(isNotEmpty(uf) && uf.matches(RegexCampos.UFFORMATO));
+		checkArgument(isNotEmpty(uf) && uf.matches(RegexCampos.UFFORMATO), "Uf invalida");
 		this.uf = uf;
 	}
 
@@ -41,8 +41,7 @@ public class Estado {
 
 	public void setCidade(Cidade cidade) {
 		checkArgument(cidade != null, "Cidade nula");
-		checkArgument(
-				!cidade.getCodigo().equals(0) && !cidade.getBairro().equals(null) && !cidade.getNome().equals(null),
+		checkArgument(cidade.getCodigo() > 0 && !cidade.getBairro().equals(null) && !cidade.getNome().equals(null),
 				"Cidade invalida");
 		this.cidade = cidade;
 	}

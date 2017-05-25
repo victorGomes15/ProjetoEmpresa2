@@ -79,7 +79,7 @@ public class Bairro {
 	 *            the new cep
 	 */
 	public void setCep(String cep) {
-		checkArgument(isNotEmpty(cep) && cep.matches(RegexCampos.CEPFORMATO), "Cep inváldo");
+		checkArgument(isNotEmpty(cep) && cep.matches(RegexCampos.CEPFORMATO), "Cep inválido");
 		this.cep = cep;
 	}
 

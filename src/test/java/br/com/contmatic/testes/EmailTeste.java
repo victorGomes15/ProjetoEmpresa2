@@ -5,7 +5,9 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import br.com.contmatic.empresa.Email;
 import br.com.six2six.fixturefactory.Fixture;
@@ -38,23 +40,28 @@ public class EmailTeste {
 		System.out.println("Fim de teste");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+
+	@Test
 	public void nao_deve_aceitar_um_endereco_de_email_nulo() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Email nulo ou vazio");
 		email.setEnderecoEmail(null);
-		System.out.println(email.getEnderecoEmail());
-		Assert.assertNull(email.getEnderecoEmail());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_endereco_de_email_vazio() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Email nulo ou vazio");
 		email.setEnderecoEmail("");
-		Assert.assertNull(email.getEnderecoEmail());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_endereco_de_email_com_mais_de_1_arroba() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Email contém mais de 1 arroba");
 		email.setEnderecoEmail("vict@r@@hotmail.com");
-		Assert.assertNull(email.getEnderecoEmail());
 	}
 
 	@Test
@@ -62,22 +69,25 @@ public class EmailTeste {
 		Assert.assertNotNull(email.getEnderecoEmail());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_email_com_ponto_no_final() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Email não pode começar ou terminar com @ ou ponto");
 		email.setEnderecoEmail("victor@gmail.com.");
-		Assert.assertNull(email.getEnderecoEmail());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_email_que_esteja_vazio_antes_do_arroba() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Email não pode começar ou terminar com @ ou ponto");
 		email.setEnderecoEmail("@gmail.com.br");
-		Assert.assertNull(email.getEnderecoEmail());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_email_que_esteja_vazio_depois_do_arroba() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Email não pode começar ou terminar com @ ou ponto");
 		email.setEnderecoEmail("jose@");
-		Assert.assertNull(email.getEnderecoEmail());
 	}
 
 }

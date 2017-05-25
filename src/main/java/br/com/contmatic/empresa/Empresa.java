@@ -66,7 +66,6 @@ public class Empresa {
 	 *            the new cnpj
 	 */
 	public void setCnpj(String cnpj) {
-
 		checkArgument(isNotEmpty(cnpj) && cnpj.matches(RegexCampos.CNPJFORMATO), "CNPJ incorreto");
 		this.cnpj = cnpj;
 	}
@@ -163,7 +162,7 @@ public class Empresa {
 	public void setDataCriacao(DateTime dataCriacao) {
 		DateTime dataAtual = DateTime.now();
 		checkArgument(dataCriacao.isAfterNow() || dataCriacao.equals(dataAtual),
-				"Data não tem que ser a partir do horário de agora ");
+				"Data deve ser a partir da data atual");
 		this.dataCriacao = dataCriacao;
 	}
 

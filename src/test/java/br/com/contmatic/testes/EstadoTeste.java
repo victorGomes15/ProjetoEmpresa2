@@ -45,34 +45,39 @@ public class EstadoTeste {
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_codigo_igual_a_0() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Código tem que ser maior que 0");
 		estado.setCod(0);
-		Assert.assertEquals(null, estado.getCod());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_uf_nula() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Uf invalida");
 		estado.setUf(null);
-		Assert.assertNull(estado.getUf());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_uf_vazia() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Uf invalida");
 		estado.setUf("");
-		Assert.assertNull(estado.getUf());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_uf_com_mais_de_2_caracteres() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Uf invalida");
 		estado.setUf("paraiba");
-		Assert.assertNull(estado.getUf());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_uf_com_menos_de_2_caracteres() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Uf invalida");
 		estado.setUf("u");
-		Assert.assertNull(estado.getUf());
 	}
 
 	@Test
@@ -86,11 +91,11 @@ public class EstadoTeste {
 		System.out.println(estado);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_cidade_invalida() {
-		cidade = Fixture.from(Cidade.class).gimme("cidadeValida");
-		cidade.setCodigo(-1);
-		cidade.setNome(null);
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Cidade invalida");
+		cidade = Fixture.from(Cidade.class).gimme("cidadeInvalida");
 		estado.setCidade(cidade);
 	}
 

@@ -5,7 +5,9 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import br.com.contmatic.empresa.Bairro;
 import br.com.six2six.fixturefactory.Fixture;
@@ -38,13 +40,20 @@ public class BairroTeste {
 		System.out.println("Fim de teste");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+
+	@Test
 	public void nao_deve_aceitar_um_codigo_igual_0() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Código inserido menor ou igual a 0");
 		bairro.setCodigo(0);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_codigo_negativo() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Código inserido menor ou igual a 0");
 		bairro.setCodigo(-1);
 	}
 
@@ -54,19 +63,24 @@ public class BairroTeste {
 		Assert.assertNotNull(bairro2.getCodigo());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_bairro_nulo() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Nome de bairro incorreto");
 		bairro.setNomeBairro(null);
-		Assert.assertNull(bairro.getNomeBairro());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_bairro_vazio() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Nome de bairro incorreto");
 		bairro.setNomeBairro("");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_bairro_menor_que_4_caracteres() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Nome de bairro incorreto");
 		bairro.setNomeBairro("123");
 	}
 
@@ -75,27 +89,31 @@ public class BairroTeste {
 		Assert.assertNotNull(bairro.getCep());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_cep_que_contenha_letras() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Cep inválido");
 		bairro.setCep("05857-38ç");
-		Assert.assertNull(bairro.getCep());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_cep_que_contenha_caracteres_Especiais() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Cep inválido");
 		bairro.setCep("12345-17@");
-		Assert.assertNull(bairro.getCep());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_cep_que_nulo() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Cep inválido");
 		bairro.setCep(null);
-		Assert.assertEquals(null, bairro.getCep());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_cep_que_esteja_vazio() {
+		expectedEx.expect(IllegalArgumentException.class);
+		expectedEx.expectMessage("Cep inválido");
 		bairro.setCep("");
-		Assert.assertNull(bairro.getCep());
 	}
 }
