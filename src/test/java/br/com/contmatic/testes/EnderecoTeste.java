@@ -96,7 +96,7 @@ public class EnderecoTeste {
 	@Test
 	public void nao_deve_aceitar_um_complemento_menor_que_0() {
 		endereco.setComplemento(-1);
-		assertFalse(Validacao.vaidacoes(endereco));
+		assertTrue(Validacao.vaidacoes(endereco));
 	}
 
 }
