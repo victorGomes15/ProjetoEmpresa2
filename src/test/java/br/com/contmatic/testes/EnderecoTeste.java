@@ -1,8 +1,10 @@
 package br.com.contmatic.testes;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,47 +38,48 @@ public class EnderecoTeste {
 	@After
 	public void finalizacao_Teste() {
 		System.out.println("Fim de teste");
-		;
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_rua_nula() {
 		endereco.setRua(null);
-		Assert.assertNull(endereco.getRua());
+		assertTrue(Validacao.vaidacoes(endereco));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_rua_vazia() {
 		endereco.setRua("");
-		Assert.assertNull(endereco.getRua());
+		assertTrue(Validacao.vaidacoes(endereco));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_rua_com_menos_de_4_caracteres() {
 		endereco.setRua("cas");
-		Assert.assertNull(endereco.getRua());
+		assertTrue(Validacao.vaidacoes(endereco));
 	}
 
 	@Test
 	public void deve_aceitar_uma_rua_com_mais_de_4_caracteres() {
 		endereco.setRua("joao 12");
-		Assert.assertEquals("joao 12", endereco.getRua());
+		assertFalse(Validacao.vaidacoes(endereco));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_uma_rua_com_caracteres_especiais() {
 		endereco.setRua("J@nathan #");
-		Assert.assertNull(endereco.getRua());
+		assertTrue(Validacao.vaidacoes(endereco));
 	}
 
 	@Test
 	public void deve_aceitar_um_numero_maior_que_0() {
 		endereco.setNumero(1);
+		assertFalse(Validacao.vaidacoes(endereco));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_numero_igual_a_0() {
 		endereco.setNumero(0);
+		assertTrue(Validacao.vaidacoes(endereco));
 	}
 
 	@Test
@@ -87,11 +90,13 @@ public class EnderecoTeste {
 	@Test
 	public void deve_aceitar_um_complemento_maior_igual_a_0() {
 		endereco.setComplemento(40);
+		assertFalse(Validacao.vaidacoes(endereco));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_um_complemento_menor_que_0() {
 		endereco.setComplemento(-1);
+		assertFalse(Validacao.vaidacoes(endereco));
 	}
 
 }

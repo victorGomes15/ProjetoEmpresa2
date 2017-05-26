@@ -14,7 +14,7 @@ public class CidadeTemplates implements TemplateLoader {
 		Fixture.of(Cidade.class).addTemplate("cidadeValida", new Rule() {
 			{
 				add("codigo", random(Integer.class, range(1, 100)));
-				add("nome", random("São Paulo", "Rio de Janeiro", "Osasco"));
+				add("nome", random("Sao Paulo", "Rio de Janeiro", "Osasco"));
 				add("bairro", one(Bairro.class, "bairroValido"));
 			}
 		});

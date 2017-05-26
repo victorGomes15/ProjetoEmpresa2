@@ -3,6 +3,7 @@ package br.com.contmatic.empresa;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,6 +25,7 @@ public class Bairro {
 	/** The nome bairro. */
 	@NotBlank(message = "Nome do bairro não pode ser nulo ou vazio")
 	@Pattern(regexp = RegexCampos.NOME_BAIRRO_FORMATO, message = "Nome do bairro não pode conter caracteres especiais")
+	@Size(min = 4, max = 20, message = "Tamanho minimo igual 4 e maximo igual a 20")
 	private String nomeBairro;
 
 	/** The cep. */

@@ -13,7 +13,7 @@ public class BairroTemplates implements TemplateLoader {
 		Fixture.of(Bairro.class).addTemplate("bairroValido", new Rule() {
 			{
 				add("codigo", random(Integer.class, range(1, 100)));
-				add("nomeBairro", random("Ibirapuera", "Capão Redondo", "Tatuapé"));
+				add("nomeBairro", random("Ibirapuera", "Capao Redondo", "Tatuape"));
 				add("cep", regex(RegexCampos.CEP_FORMATO));
 			}
 		});

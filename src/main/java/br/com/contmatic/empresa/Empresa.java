@@ -14,8 +14,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 
-import br.com.caelum.stella.bean.validation.CNPJ;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class Empresa.
@@ -24,12 +22,13 @@ public class Empresa {
 
 	/** The cnpj. */
 	@NotNull(message = "CNPJ não deve ser nulo ou vazio")
-	@CNPJ(message = "CNPJ deve ser valido")
+	@Pattern(regexp = RegexCampos.CNPJ_FORMATO, message = "CNPJ deve ser valido")
 	private String cnpj;
 
 	/** The razao social. */
 	@NotBlank(message = "Razão social não pode ser nula ou vazia")
 	@Size(min = 2, max = 30)
+	@Pattern(regexp = RegexCampos.RAZAO_SOCIAL_FORMATO)
 	private String razaoSocial;
 
 	/** The endereco. */

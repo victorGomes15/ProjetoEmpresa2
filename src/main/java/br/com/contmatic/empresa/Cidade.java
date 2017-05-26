@@ -1,10 +1,8 @@
 package br.com.contmatic.empresa;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -20,17 +18,18 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Cidade {
 
 	@NotNull(message = "Código não pode ser nulo")
-	@Min(1)
+	@Min(value = 1, message = "Código da cidade parte de {value}")
 	/** The codigo. */
 	private Integer codigo;
 
 	/** The nome. */
-	@NotBlank(message = "Nome não pode ser nulo ou vazio")
-	@Length(min = 4, max = 30)
+	@NotBlank(message = "Nome da cidade não pode ser nula ou vazia")
+	@Pattern(regexp = RegexCampos.NOME_CIDADE_FORMATO, message = "Nome da cidade não pode conter caracteres especiais")
+	@Length(min = 3, max = 30, message = "Tamanho minimo da cidade igual 4 e máximo igual 30")
 	private String nome;
 
 	/** The bairro. */
-	@NotNull(message = "Bairro deve ser nulo")
+	@NotNull(message = "Bairro nao pode ser nulo")
 	private Bairro bairro;
 
 	/**
@@ -55,7 +54,6 @@ public class Cidade {
 	 *            the new codigo
 	 */
 	public void setCodigo(Integer codigo) {
-		checkArgument(codigo > 0, "Código deve ser maior que 0");
 		this.codigo = codigo;
 	}
 
@@ -75,7 +73,6 @@ public class Cidade {
 	 *            the new nome
 	 */
 	public void setNome(String nome) {
-		checkArgument(isNotEmpty(nome) && nome.length() > 2, "Nome da cidade invalido");
 		this.nome = nome;
 	}
 
@@ -95,9 +92,6 @@ public class Cidade {
 	 *            the new bairro
 	 */
 	public void setBairro(Bairro bairro) {
-		checkArgument(bairro != null, "Bairro nulo");
-		checkArgument(!bairro.getNomeBairro().equals(null) && bairro.getCodigo() > 0,
-				"Nome do bairro ou código invalido");
 		this.bairro = bairro;
 	}
 

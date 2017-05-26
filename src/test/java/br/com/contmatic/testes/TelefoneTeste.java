@@ -43,93 +43,87 @@ public class TelefoneTeste {
 	@Rule
 	public ExpectedException expectEx = ExpectedException.none();
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nao_deve_aceitar_ddd_menor_que_11() {
 		telefone.setDdd(10);
-		Assert.assertNull(telefone.getDdd());
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_aceitar_ddd_maior_que_99() {
-		expectEx.expect(IllegalArgumentException.class);
-		expectEx.expectMessage("DDD valor incorreto");
 		telefone.setDdd(100);
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void deve_aceitar_ddd_entre_11_e_99() {
 		telefone.setDdd(20);
-		Assert.assertNotNull(telefone.getDdd());
+		Assert.assertFalse(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void deve_aceitar_8_ou_9_caracteres_no_numero() {
 		telefone.setNumero("58254952");
-		Assert.assertNotNull(telefone.getNumero());
+		Assert.assertFalse(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_conter_menos_de_8_caracteres_no_numero() {
-		expectEx.expect(IllegalArgumentException.class);
-		expectEx.expectMessage("Número inválido");
 		telefone.setNumero("1234567");
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_conter_mais_de_9_caracteres_no_numero() {
-		expectEx.expect(IllegalArgumentException.class);
-		expectEx.expectMessage("Número inválido");
 		telefone.setNumero("5825495210");
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_Numero_vazio() {
-		expectEx.expect(IllegalArgumentException.class);
-		expectEx.expectMessage("Número nulo ou vazio");
 		telefone.setNumero("");
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_Numero_com_letras() {
-		expectEx.expect(IllegalArgumentException.class);
-		expectEx.expectMessage("Campo só deve conter números");
 		telefone.setNumero("5825495l");
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_Tipo_vazio() {
-		expectEx.expect(IllegalArgumentException.class);
 		String x = "";
 		telefone.setTipo(TelefoneType.valueOf(x));
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void nao_deve_aceitar_um_Tipo_nulo() {
 		String tipo = null;
 		telefone.setTipo(TelefoneType.valueOf(tipo));
-		Assert.assertNull(telefone.getTipo());
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_Tipo_com_numero() {
-		expectEx.expect(IllegalArgumentException.class);
 		String x = "fdf4";
 		telefone.setTipo(TelefoneType.valueOf(x));
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_Tipo_diferente_de_celular_ou_fixo() {
-		expectEx.expect(IllegalArgumentException.class);
 		String x = "comercial";
 		telefone.setTipo(TelefoneType.valueOf(x));
+		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
 	@Test
 	public void deve_aceitar_um_Tipo_que_seja_igual_celular_ou_fixo() {
 		String tipo = "FiXo";
 		telefone.setTipo(TelefoneType.valueOf(tipo.toUpperCase()));
-		Assert.assertEquals(TelefoneType.FIXO, telefone.getTipo());
-
+		Assert.assertFalse(Validacao.vaidacoes(telefone));
 	}
 
 	@Test

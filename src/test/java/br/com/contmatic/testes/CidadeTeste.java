@@ -1,13 +1,14 @@
 package br.com.contmatic.testes;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import br.com.contmatic.empresa.Bairro;
 import br.com.contmatic.empresa.Cidade;
@@ -40,37 +41,31 @@ public class CidadeTeste {
 
 	@After
 	public void finalizacao_Teste() {
-		System.out.println(cidade);
 		System.out.println("Fim de teste");
 	}
 
-	@Rule
-	public ExpectedException expectedEx = ExpectedException.none();
-
 	@Test
 	public void nao_deve_aceitar_um_nome_nulo() {
-		expectedEx.expect(IllegalArgumentException.class);
-		expectedEx.expectMessage("Nome da cidade invalido");
 		cidade.setNome(null);
+		assertTrue(Validacao.vaidacoes(cidade));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_nome_vazio() {
-		expectedEx.expect(IllegalArgumentException.class);
-		expectedEx.expectMessage("Nome da cidade invalido");
 		cidade.setNome("");
+		assertTrue(Validacao.vaidacoes(cidade));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_nome_com_menos_de_3_caracteres() {
-		expectedEx.expect(IllegalArgumentException.class);
-		expectedEx.expectMessage("Nome da cidade invalido");
 		cidade.setNome("It");
+		assertTrue(Validacao.vaidacoes(cidade));
 	}
 
 	@Test
 	public void deve_aceitar_um_nome_com_mais_de_2_caracteres() {
 		cidade.setNome("Itu");
+		assertFalse(Validacao.vaidacoes(cidade));
 	}
 
 	@Test
@@ -80,17 +75,15 @@ public class CidadeTeste {
 
 	@Test
 	public void deve_aceitar_um_bairro_valido() {
-		Assert.assertNotNull(cidade.getBairro());
+		bairro = Fixture.from(Bairro.class).gimme("bairroValido");
+		cidade.setBairro(bairro);
+		Assert.assertFalse(Validacao.vaidacoes(cidade));
 	}
 
 	@Test
 	public void nao_deve_aceitar_um_bairro_invalido() {
-		expectedEx.expect(IllegalArgumentException.class);
-		expectedEx.expectMessage("");
-		bairro = Fixture.from(Bairro.class).gimme("bairroValido");
-		bairro.setCodigo(0);
-		bairro.setNomeBairro("sp");
-		cidade.setBairro(bairro);
+		cidade.setBairro(null);
+		Assert.assertTrue(Validacao.vaidacoes(cidade));
 	}
 
 }

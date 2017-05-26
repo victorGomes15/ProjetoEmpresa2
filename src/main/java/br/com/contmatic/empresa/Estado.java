@@ -23,7 +23,7 @@ public class Estado {
 	/** The uf. */
 	@NotBlank(message = "Unidade Federal não pode ser nula ou vazia")
 	@Size(min = 2, max = 2, message = "Unidade Federal deve conter somente suas siglas")
-	@Pattern(regexp = RegexCampos.UF_FORMATO)
+	@Pattern(regexp = RegexCampos.UF_FORMATO, message = "Uf somente com letras maiusculas")
 	private String uf;
 	
 	/** The cidade. */

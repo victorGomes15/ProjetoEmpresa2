@@ -11,6 +11,7 @@ public final class RegexCampos {
 	public final static String RAZAO_SOCIAL_FORMATO = "[A-Za-z0-9]{1,30}";
 	public final static String INSCRICAO_ESTADUAL_FORMATO = "[0-9]{13}";
 	public final static String DONO_FORMATO = "^[A-Za-z]{4,50}";
-	public final static String NOME_BAIRRO_FORMATO = "[A-Za-z0-9]{5,20}";
+	public final static String NOME_BAIRRO_FORMATO = "[A-Za-z0-9\\s]+";
+	public final static String NOME_CIDADE_FORMATO = "[A-Za-z0-9\\s]+";
 	public final static String NOME_EMPRESA_FORMATO = "[A-Za-z0-9]{5,20}";
 }

@@ -4,6 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -22,6 +23,7 @@ public class Endereco {
 	/** The rua. */
 	@NotBlank(message = "Nome da rua não pode ser vazia ou nula")
 	@Pattern(regexp = RegexCampos.RUA_FORMATO)
+	@Size(min = 4, max = 10)
 	private String rua;
 
 	/** The numero. */

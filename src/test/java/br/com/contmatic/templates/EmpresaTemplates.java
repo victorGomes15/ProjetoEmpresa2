@@ -19,7 +19,7 @@ public class EmpresaTemplates implements TemplateLoader {
 			{
 				add("cnpj", regex(RegexCampos.CNPJ_FORMATO));
 				add("dataCriacao", DateTime.now().plusDays(1));
-				add("dono", random("João", "José", "Pedro", "Luís"));
+				add("dono", random("Joao", "Jose", "Pedro", "Luis"));
 				add("email", one(Email.class, "emailValido"));
 				add("endereco", has(1).of(Endereco.class, "enderecoValido"));
 				add("inscricaoEstadual", regex(RegexCampos.INSCRICAO_ESTADUAL_FORMATO));
