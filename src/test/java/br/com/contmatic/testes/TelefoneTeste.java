@@ -100,8 +100,7 @@ public class TelefoneTeste {
 
 	@Test
 	public void nao_deve_aceitar_um_Tipo_nulo() {
-		String tipo = null;
-		telefone.setTipo(TelefoneType.valueOf(tipo));
+		telefone.setTipo(null);
 		Assert.assertTrue(Validacao.vaidacoes(telefone));
 	}
 
